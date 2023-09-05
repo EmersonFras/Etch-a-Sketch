@@ -6,13 +6,17 @@
     border-style: solid;
 }
 
-.row {
+#row {
     display: flex;
     flex-direction: row;
     flex: 1 1 auto;
 }
 
-.box {
+#box {
     flex: 1 1 auto;
     aspect-ratio: 1 / 1 ;
+}
+
+.hover {
+    background-color: blue;
 }
