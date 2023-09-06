@@ -1,3 +1,6 @@
+let color = "rgb(160, 160, 223)";
+let count = 0;
+
 let gridLengths = 16;
 createGrid(gridLengths);
 
@@ -6,6 +9,11 @@ const button = document.querySelector("#btn");
 
 // add an event listener to button for when its clicked
 button.addEventListener("click", sizeChange);
+
+// define a constant for the color buttons
+const colorPickers = document.querySelectorAll("#color");
+
+colorPickers.forEach(color => color.addEventListener("click", setColor))
 
 
 function createGrid(gridLengths) {
@@ -34,7 +42,15 @@ const boxes = document.querySelectorAll("#box");
 }
 function gridDraw() {
     // set attribute of this to hover to give the hover styling
-    this.setAttribute("class", "hover");
+    this.style.backgroundColor = color;
+    if (color != "rgb(160, 160, 223)") {
+        count++;
+        if (count == 10) {
+            randomRGB();
+            count = 0;
+        }
+    }
+    //this.setAttribute("class", "hover-blue");
 }
 
 function sizeChange() {
@@ -50,5 +66,27 @@ function sizeChange() {
     container.replaceChildren();
     // call create grid with the input size
     createGrid(size);
+}
+
+function setColor() {
+    // switches the color depending on this's attributes
+    switch (this.getAttribute("class")) {
+        case ("blue"):
+            color = "rgb(160, 160, 223)";
+            break;
+        case ("rainbow"):
+            color = "green";
+            break;
+    }
+}
+
+function randomRGB() {
+    // defines three variables for red green and blue with random values
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    // sets color equal to the random numbers
+    color = "rgb(" + r + "," + g + "," + b + ")";  
+
 }
 
