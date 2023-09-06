@@ -5,10 +5,20 @@ let gridLengths = 16;
 createGrid(gridLengths);
 
 // define a constant for the change size button
-const button = document.querySelector("#btn");
+const buttons = document.querySelectorAll("#btn");
 
 // add an event listener to button for when its clicked
-button.addEventListener("click", sizeChange);
+buttons.forEach(button => button.addEventListener("click", function(e) {
+    // switch depending on the class of the button to call the right function
+    switch (this.getAttribute("class")) {
+        case ("reset"):
+            createGrid(gridLengths);
+            break;
+        case ("size"):
+            sizeChange();
+            break;
+    }
+}));
 
 // define a constant for the color buttons
 const colorPickers = document.querySelectorAll("#color");
@@ -19,6 +29,9 @@ colorPickers.forEach(color => color.addEventListener("click", setColor))
 function createGrid(gridLengths) {
     // define the constant for the container
     const container = document.querySelector(".container");
+
+    // replace children of container to remove all children
+    container.replaceChildren();
 
     // iterate through grid lengths to create rows and columns of divs
     for (let j = 0; j < gridLengths; j++) {
@@ -60,10 +73,6 @@ function sizeChange() {
     while (!(size < 100 && size > 0)) {
         size = prompt("Enter size of the drawing space (MAX 100): ");
     }
-    // define a constant container
-    const container = document.querySelector(".container");
-    // replace children of container to remove all children
-    container.replaceChildren();
     // call create grid with the input size
     createGrid(size);
 }
@@ -75,7 +84,7 @@ function setColor() {
             color = "rgb(160, 160, 223)";
             break;
         case ("rainbow"):
-            color = "green";
+            randomRGB();
             break;
     }
 }
